@@ -1,0 +1,30 @@
+name: Noor Bot Auto Post
+
+on:
+  schedule:
+    # الأوقات بتوقيت بغداد (06:00, 08:30, 11:00, 13:30, 16:00, 18:30, 21:00)
+    - cron: '0 3 * * *'
+    - cron: '30 5 * * *'
+    - cron: '0 8 * * *'
+    - cron: '30 10 * * *'
+    - cron: '0 13 * * *'
+    - cron: '30 15 * * *'
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install pyTelegramBotAPI
+      - name: Run Bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python main.py
