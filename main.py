@@ -1,23 +1,20 @@
 import telebot
 import os
 
-# جلب البيانات
+# الحصول على الرموز من الإعدادات
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
-# جربنا هذا المعرف، تأكد أنه لم يتغير
-CHAT_ID ="@Norham313"
-
+CHAT_ID = "@Norham313"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-def test_connection():
+def send_test_message():
     try:
         # محاولة إرسال رسالة بسيطة جداً
-        msg = "صدقة جارية عن روح المرحوم كاظم صالح خليفة ✅\nهذا المنشور للتجربة."
-        bot.send_message(CHAT_ID, msg)
-        print("✅ تم الإرسال بنجاح! اذهب للقناة وتأكد.")
+        message = "✅ تم تشغيل البوت بنجاح.. صدقة جارية لروح المرحوم كاظم صالح خليفة"
+        bot.send_message(CHAT_ID, message)
+        print("Done! Check your channel.")
     except Exception as e:
-        print(f"❌ فشل الإرسال بسبب: {e}")
-        print("تأكد أن البوت مشرف في القناة الصحيحة وأن التوكن سليم.")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
-    test_connection()
+    send_test_message()
