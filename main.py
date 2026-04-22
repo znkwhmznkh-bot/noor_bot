@@ -4,7 +4,8 @@ import os
 # جلب البيانات
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 # جربنا هذا المعرف، تأكد أنه لم يتغير
-CHAT_ID = "-1002302305574" 
+CHAT_ID ="@Norham313"
+
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
