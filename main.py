@@ -1,37 +1,63 @@
 import telebot
 import os
+import time
 import random
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 CHAT_ID = "@Norham313"
+
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# هذه هي القائمة التي سيختار منها البوت عشوائياً
-content_list = [
-    {"t": "﴿إِنَّ مَعَ الْعُسْرِ يُسْرًا﴾", "s": "القرآن الكريم"},
-    {"t": "﴿وَبَشِّرِ الصَّابِرِينَ﴾", "s": "القرآن الكريم"},
-    {"t": "يَا مَنْ اسْمُهُ دَوَاءٌ وَذِكْرُهُ شِفَاءٌ.", "s": "مفاتيح الجنان"},
-    {"t": "أَشَدُّ الذُّنُوبِ مَا اسْتَهَانَ بِهِ صَاحِبُهُ.", "s": "نهج البلاغة"},
-    {"t": "اللهم صل على محمد وآل محمد وعجل فرجهم.", "s": "أذكار"},
-    {"t": "أستغفر الله ربي وأتوب إليه.", "s": "تذكير"}
+intro_list = [
+    "🌿 صدقة جارية",
+    "🤍 عمل خير لروح فقيدنا",
+    "🌸 دعاء ورحمة",
+    "📿 ثواب مستمر"
 ]
 
-def send_random_post():
-    try:
-        # اختيار عشوائي من القائمة أعلاه
-        item = random.choice(content_list)
-        
-        # تنسيق الرسالة النهائي
-        final_message = (
-            f"✨ {item['t']}\n\n"
-            f"📖 المصدر: {item['s']}\n\n"
-            f"🌿 صدقة جارية لروح المرحوم كاظم صالح خليفة"
-        )
-        
-        bot.send_message(CHAT_ID, final_message)
-        print("Done!")
-    except Exception as e:
-        print(f"Error: {e}")
+dua_list = [
+    "اللهم ارحم واغفر لروح المرحوم كاظم صالح خليفة",
+    "اللهم اجعل قبره روضة من رياض الجنة",
+    "اللهم نور قبره ووسع مدخله",
+    "اللهم ابدله داراً خيراً من داره"
+]
 
-if __name__ == "__main__":
-    send_random_post()
+closing_list = [
+    "نسألكم قراءة سورة الفاتحة مع الصلاة على محمد وآل محمد 🌿",
+    "الفاتحة مع الصلاة على النبي وآله الكرام 🤍",
+    "نرجو الدعاء وقراءة الفاتحة 🌸",
+    "اللهم صلِّ على محمد وآل محمد مع الفاتحة"
+]
+
+posts = []
+
+for i in range(1, 501):
+    post = f"""{random.choice(intro_list)} رقم {i}
+
+بثواب روح والدي المرحوم كاظم صالح خليفة 🤍
+{random.choice(dua_list)}
+
+{random.choice(closing_list)}
+"""
+    posts.append(post)
+
+index = 0
+
+def send_post():
+    global index
+    try:
+        bot.send_message(CHAT_ID, posts[index])
+        print(f"تم نشر: {index+1}")
+
+        index += 1
+
+        if index >= len(posts):
+            bot.send_message(CHAT_ID, "✅ تم نشر جميع المنشورات (500) بنجاح")
+            index = 0
+
+    except Exception as e:
+        print(e)
+
+while True:
+    send_post()
+    time.sleep(3 * 60 * 60)
