@@ -19,10 +19,9 @@ content_list = [
 def send_random_post():
     try:
         item = random.choice(content_list)
-        # هذا السطر هو اللي يغير الرسالة، تأكد ماكو قبله علامة #
-        msg = f"✨ {item['t']}\n\n📖 المرجع: {item['s']}\n\n🌿 صدقة جارية لروح المرحوم كاظم صالح خليفة"
+        msg = f"✨ {item['t']}\n\n📖 المصدر: {item['s']}\n\n🌿 صدقة جارية لروح المرحوم كاظم صالح خليفة"
         bot.send_message(CHAT_ID, msg)
-        print("Done")
+        print("Success")
     except Exception as e:
         print(e)
 
