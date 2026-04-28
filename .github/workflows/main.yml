@@ -1,27 +1,26 @@
-name: Noor Bot Auto Post
+name: Auto Post Bot
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 3,6,9,12,15,18,21 * * *'
-
+    - cron: '0 */2 * * *'  # ينشر تلقائياً كل ساعتين
+  workflow_dispatch:        # يتيح لك التشغيل اليدوي أيضاً
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/set_up-python@v2
         with:
           python-version: '3.9'
 
       - name: Install dependencies
         run: pip install pyTelegramBotAPI
 
-      - name: Run main script
+      - name: Run bot
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: python main.py
