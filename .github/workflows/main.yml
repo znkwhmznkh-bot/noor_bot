@@ -1,1 +1,26 @@
+name: Run Noor Bot
 
+on:
+  schedule:
+    - cron: '0 */2 * * *' # يشتغل تلقائياً كل ساعتين
+  workflow_dispatch: # زر تشغيل يدوي للتجربة
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install pyTelegramBotAPI schedule
+
+      - name: Run Bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python main.py
