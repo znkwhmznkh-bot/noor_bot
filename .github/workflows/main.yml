@@ -2,8 +2,8 @@ name: Run Noor Bot
 
 on:
   schedule:
-    - cron: '0 */2 * * *' # يشتغل تلقائياً كل ساعتين
-  workflow_dispatch: # زر تشغيل يدوي للتجربة
+    - cron: '30 * * * *' # النشر كل ساعة في الدقيقة 30
+  workflow_dispatch: # زر التشغيل اليدوي
 
 jobs:
   run-bot:
@@ -18,7 +18,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install pyTelegramBotAPI schedule
+        run: pip install pyTelegramBotAPI
 
       - name: Run Bot
         env:
