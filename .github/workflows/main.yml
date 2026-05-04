@@ -2,7 +2,7 @@ name: Run Noor Bot
 
 on:
   schedule:
-    - cron: '30 * * * *' # النشر كل ساعة في الدقيقة 30
+    - cron: '30 * * * *' # ينشر دقيقة 30 من كل ساعة
   workflow_dispatch: # زر التشغيل اليدوي
 
 jobs:
@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # تحديث للنسخة 4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # تحديث للنسخة 5
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
       - name: Install dependencies
         run: pip install pyTelegramBotAPI
