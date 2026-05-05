@@ -1,12 +1,14 @@
 import telebot
-import random
 import os
+import time
 
+# الإعدادات
 API_TOKEN = os.getenv('BOT_TOKEN') 
 CHANNEL_ID = '@Norham313' 
 
 bot = telebot.TeleBot(API_TOKEN)
 
+# قائمة الـ 50 منشوراً (مرتبة بالتسلسل)
 messages = [
     "🚩 من بطولات أبي الفضل العباس (ع): يوم عاشوراء حينما كسر الحصار عن الماء ووصل الفرات، ولم يشرب قطرة واحدة مواساة لعطش الحسين (ع). \n📖 [المصدر: معالي السبطين]",
     "✨ عن رسول الله (ص): «إني تارك فيكم الثقلين: كتاب الله وعترتي أهل بيتي، ما إن تمسكتم بهما لن تضلوا بعدي أبداً». \n📖 [المصدر: وسائل الشيعة]",
@@ -67,10 +69,15 @@ FOOTER = """
 
 def send_post():
     try:
-        content = random.choice(messages)
+        # فكرة التسلسل: نستخدم عدد الساعات التي مرت منذ بداية السنة 
+        # هذا يضمن أن كل ساعة يختار المنشور التالي بالترتيب
+        current_index = int(time.time() / 3600) % len(messages)
+        
+        content = messages[current_index]
         final_message = f"{content}\n{FOOTER}"
+        
         bot.send_message(CHANNEL_ID, final_message)
-        print("Done!")
+        print(f"Done! Posted message index: {current_index}")
     except Exception as e:
         print(f"Error: {e}")
 
