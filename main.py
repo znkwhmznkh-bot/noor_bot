@@ -8,7 +8,7 @@ CHANNEL_ID = '@Norham313'
 
 bot = telebot.TeleBot(API_TOKEN)
 
-# قائمة الـ 50 منشوراً
+# قائمة الـ 50 منشوراً (بالتسلسل)
 messages = [
     "🚩 من بطولات أبي الفضل العباس (ع): يوم عاشوراء حينما كسر الحصار عن الماء ووصل الفرات، ولم يشرب قطرة واحدة مواساة لعطش الحسين (ع). \n📖 [المصدر: معالي السبطين]",
     "✨ عن رسول الله (ص): «إني تارك فيكم الثقلين: كتاب الله وعترتي أهل بيتي، ما إن تمسكتم بهما لن تضلوا بعدي أبداً». \n📖 [المصدر: وسائل الشيعة]",
@@ -62,20 +62,19 @@ messages = [
     "🕯️ يا رب ارحم موتانا وموتى المسلمين واغفر لهم أجمعين."
 ]
 
-# التذييل (تم تعديل علامات الاقتباس لضمان الظهور)
+# التذييل (نص واحد مدمج لضمان الظهور)
 FOOTER = "\n---\nبثواب روح والدي المرحوم كاظم صالح خليفة \nنسألكم قراءة سورة الفاتحة مع الصلاة على محمد وآل محمد 🌿"
 
 def send_post():
     try:
-        # نظام التسلسل بالساعة
+        # حساب الفهرس بناءً على الساعة الحالية لضمان التسلسل
         index = int(time.time() / 3600) % len(messages)
         
-        content = messages[index]
-        # دمج مباشر
-        final_message = content + FOOTER
+        # دمج المنشور مع التذييل
+        final_message = messages[index] + FOOTER
         
         bot.send_message(CHANNEL_ID, final_message)
-        print(f"Done! Posted index: {index}")
+        print(f"Success! Posted message index: {index}")
     except Exception as e:
         print(f"Error: {e}")
 
