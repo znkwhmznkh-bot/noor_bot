@@ -8,7 +8,7 @@ CHANNEL_ID = '@Norham313'
 
 bot = telebot.TeleBot(API_TOKEN)
 
-# قائمة الـ 50 منشوراً (مرتبة بالتسلسل)
+# قائمة الـ 50 منشوراً
 messages = [
     "🚩 من بطولات أبي الفضل العباس (ع): يوم عاشوراء حينما كسر الحصار عن الماء ووصل الفرات، ولم يشرب قطرة واحدة مواساة لعطش الحسين (ع). \n📖 [المصدر: معالي السبطين]",
     "✨ عن رسول الله (ص): «إني تارك فيكم الثقلين: كتاب الله وعترتي أهل بيتي، ما إن تمسكتم بهما لن تضلوا بعدي أبداً». \n📖 [المصدر: وسائل الشيعة]",
@@ -62,22 +62,20 @@ messages = [
     "🕯️ يا رب ارحم موتانا وموتى المسلمين واغفر لهم أجمعين."
 ]
 
-FOOTER = """
----
-بثواب روح والدي المرحوم كاظم صالح خليفة 
-نسألكم قراءة سورة الفاتحة مع الصلاة على محمد وآل محمد 🌿"""
+# التذييل (تم تعديل علامات الاقتباس لضمان الظهور)
+FOOTER = "\n---\nبثواب روح والدي المرحوم كاظم صالح خليفة \nنسألكم قراءة سورة الفاتحة مع الصلاة على محمد وآل محمد 🌿"
 
 def send_post():
     try:
-        # فكرة التسلسل: نستخدم عدد الساعات التي مرت منذ بداية السنة 
-        # هذا يضمن أن كل ساعة يختار المنشور التالي بالترتيب
-        current_index = int(time.time() / 3600) % len(messages)
+        # نظام التسلسل بالساعة
+        index = int(time.time() / 3600) % len(messages)
         
-        content = messages[current_index]
-        final_message = f"{content}\n{FOOTER}"
+        content = messages[index]
+        # دمج مباشر
+        final_message = content + FOOTER
         
         bot.send_message(CHANNEL_ID, final_message)
-        print(f"Done! Posted message index: {current_index}")
+        print(f"Done! Posted index: {index}")
     except Exception as e:
         print(f"Error: {e}")
 
