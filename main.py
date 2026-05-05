@@ -2,13 +2,13 @@ import telebot
 import os
 import time
 
-# الإعدادات
+# إعدادات البوت والقناة
 API_TOKEN = os.getenv('BOT_TOKEN') 
 CHANNEL_ID = '@Norham313' 
 
 bot = telebot.TeleBot(API_TOKEN)
 
-# قائمة الـ 50 منشور (بدون تذييل)
+# قائمة الـ 50 منشور (نصوص فقط)
 messages = [
     "🚩 من بطولات أبي الفضل العباس (ع): يوم عاشوراء حينما كسر الحصار عن الماء ووصل الفرات، ولم يشرب قطرة واحدة مواساة لعطش الحسين (ع). \n📖 [المصدر: معالي السبطين]",
     "✨ عن رسول الله (ص): «إني تارك فيكم الثقلين: كتاب الله وعترتي أهل بيتي، ما إن تمسكتم بهما لن تضلوا بعدي أبداً». \n📖 [المصدر: وسائل الشيعة]",
@@ -62,6 +62,7 @@ messages = [
     "🕯️ يا رب ارحم موتانا وموتى المسلمين واغفر لهم أجمعين."
 ]
 
+# التذييل الثابت (صدقة جارية)
 FOOTER = """
 ---
 بثواب روح والدي المرحوم كاظم صالح خليفة 
@@ -69,15 +70,14 @@ FOOTER = """
 
 def send_post():
     try:
-        # نظام التسلسل بالساعة لضمان عدم التكرار
+        # اختيار المنشور بناءً على الساعة لضمان الترتيب
         index = int(time.time() / 3600) % len(messages)
-        content = messages[index]
         
-        # استخدام f-string للدمج لضمان إرسال النص كقطعة واحدة
-        final_message = f"{content}\n{FOOTER}"
+        # دمج النص مع التذييل
+        final_text = f"{messages[index]}\n{FOOTER}"
         
-        bot.send_message(CHANNEL_ID, final_message)
-        print(f"Success! Posted index: {index}")
+        bot.send_message(CHANNEL_ID, final_text)
+        print(f"Success! Posted message index: {index}")
     except Exception as e:
         print(f"Error: {e}")
 
